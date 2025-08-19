@@ -49,13 +49,11 @@ class Extractor:
     def _chat(self, system, history, gen_conf):
         hist = deepcopy(history)
         conf = deepcopy(gen_conf)
-        response = get_llm_cache(self._llm.llm_name, system, hist, conf)    #从 redis缓存中拿数据
+        response = get_llm_cache(self._llm.llm_name, system, hist, conf)
         if response:
             return response
         _, system_msg = message_fit_in([{"role": "system", "content": system}], int(self._llm.max_length * 0.92))
-        logging.warning("now system_msg-> {}".format(system_msg))
         response = self._llm.chat(system_msg[0]["content"], hist, conf)
-        logging.warning("now response-> {}".format(response))
         response = re.sub(r"^.*</think>", "", response, flags=re.DOTALL)
         if response.find("**ERROR**") >= 0:
             logging.warning(f"Extractor._chat got error. response: {response}")
