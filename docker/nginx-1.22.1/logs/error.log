@@ -1,0 +1,118 @@
+2025/08/19 10:30:30 [notice] 48096#32360: using the "select" event method
+2025/08/19 10:30:30 [notice] 48096#32360: nginx/1.22.1
+2025/08/19 10:30:30 [notice] 48096#32360: start worker processes
+2025/08/19 10:30:30 [notice] 48096#32360: start worker process 69736
+2025/08/19 10:30:30 [notice] 69736#68116: nginx/1.22.1
+2025/08/19 10:30:30 [notice] 69736#68116: create thread 71532
+2025/08/19 10:30:30 [notice] 69736#68116: create thread 67836
+2025/08/19 10:30:30 [notice] 69736#68116: create thread 8196
+2025/08/19 10:30:30 [notice] 48096#32360: start worker process 72304
+2025/08/19 10:30:30 [notice] 72304#58440: nginx/1.22.1
+2025/08/19 10:30:30 [notice] 72304#58440: create thread 70584
+2025/08/19 10:30:30 [notice] 72304#58440: create thread 68496
+2025/08/19 10:30:30 [notice] 72304#58440: create thread 72392
+2025/08/19 10:30:30 [notice] 48096#32360: start worker process 71980
+2025/08/19 10:30:31 [notice] 71980#71920: nginx/1.22.1
+2025/08/19 10:30:31 [notice] 71980#71920: create thread 68476
+2025/08/19 10:30:31 [notice] 71980#71920: create thread 69520
+2025/08/19 10:30:31 [notice] 71980#71920: create thread 67540
+2025/08/19 10:30:31 [notice] 48096#32360: start worker process 57900
+2025/08/19 10:30:31 [notice] 57900#71760: nginx/1.22.1
+2025/08/19 10:30:31 [notice] 57900#71760: create thread 71176
+2025/08/19 10:30:31 [notice] 57900#71760: create thread 56620
+2025/08/19 10:30:31 [notice] 57900#71760: create thread 72036
+2025/08/19 10:30:31 [notice] 48096#32360: start worker process 71712
+2025/08/19 10:30:31 [notice] 71712#72604: nginx/1.22.1
+2025/08/19 10:30:31 [notice] 71712#72604: create thread 67280
+2025/08/19 10:30:31 [notice] 71712#72604: create thread 68992
+2025/08/19 10:30:31 [notice] 71712#72604: create thread 67404
+2025/08/19 10:30:31 [notice] 48096#32360: start worker process 53372
+2025/08/19 10:30:32 [notice] 53372#70896: nginx/1.22.1
+2025/08/19 10:30:32 [notice] 53372#70896: create thread 62536
+2025/08/19 10:30:32 [notice] 53372#70896: create thread 67524
+2025/08/19 10:30:32 [notice] 53372#70896: create thread 71888
+2025/08/19 10:30:32 [notice] 48096#32360: start worker process 71840
+2025/08/19 10:30:32 [notice] 71840#72108: nginx/1.22.1
+2025/08/19 10:30:32 [notice] 71840#72108: create thread 71796
+2025/08/19 10:30:32 [notice] 71840#72108: create thread 71956
+2025/08/19 10:30:32 [notice] 71840#72108: create thread 13772
+2025/08/19 10:30:32 [notice] 48096#32360: start worker process 72008
+2025/08/19 10:30:32 [notice] 72008#56528: nginx/1.22.1
+2025/08/19 10:30:32 [notice] 72008#56528: create thread 5900
+2025/08/19 10:30:32 [notice] 72008#56528: create thread 68084
+2025/08/19 10:30:32 [notice] 72008#56528: create thread 69368
+2025/08/19 10:30:32 [notice] 48096#32360: start worker process 43732
+2025/08/19 10:30:33 [notice] 43732#69856: nginx/1.22.1
+2025/08/19 10:30:33 [notice] 43732#69856: create thread 69284
+2025/08/19 10:30:33 [notice] 43732#69856: create thread 72256
+2025/08/19 10:30:33 [notice] 43732#69856: create thread 67816
+2025/08/19 10:30:33 [notice] 48096#32360: start worker process 62292
+2025/08/19 10:30:33 [notice] 62292#38804: nginx/1.22.1
+2025/08/19 10:30:33 [notice] 62292#38804: create thread 67104
+2025/08/19 10:30:33 [notice] 62292#38804: create thread 71852
+2025/08/19 10:30:33 [notice] 62292#38804: create thread 65892
+2025/08/19 10:30:33 [notice] 48096#32360: start worker process 54596
+2025/08/19 10:30:34 [notice] 54596#71296: nginx/1.22.1
+2025/08/19 10:30:34 [notice] 54596#71296: create thread 72156
+2025/08/19 10:30:34 [notice] 54596#71296: create thread 65552
+2025/08/19 10:30:34 [notice] 54596#71296: create thread 69072
+2025/08/19 10:30:34 [notice] 48096#32360: start worker process 49376
+2025/08/19 10:30:34 [notice] 49376#56800: nginx/1.22.1
+2025/08/19 10:30:34 [notice] 49376#56800: create thread 72444
+2025/08/19 10:30:34 [notice] 49376#56800: create thread 63312
+2025/08/19 10:30:34 [notice] 49376#56800: create thread 59648
+2025/08/19 10:30:34 [notice] 48096#32360: start worker process 66920
+2025/08/19 10:30:34 [notice] 66920#67900: nginx/1.22.1
+2025/08/19 10:30:34 [notice] 66920#67900: create thread 68444
+2025/08/19 10:30:34 [notice] 66920#67900: create thread 71704
+2025/08/19 10:30:34 [notice] 66920#67900: create thread 72228
+2025/08/19 10:30:34 [notice] 48096#32360: start worker process 56580
+2025/08/19 10:30:35 [notice] 56580#71244: nginx/1.22.1
+2025/08/19 10:30:35 [notice] 56580#71244: create thread 69148
+2025/08/19 10:30:35 [notice] 56580#71244: create thread 71396
+2025/08/19 10:30:35 [notice] 56580#71244: create thread 58120
+2025/08/19 10:30:35 [notice] 48096#32360: start worker process 72136
+2025/08/19 10:30:35 [notice] 72136#66060: nginx/1.22.1
+2025/08/19 10:30:35 [notice] 72136#66060: create thread 68660
+2025/08/19 10:30:35 [notice] 72136#66060: create thread 70904
+2025/08/19 10:30:35 [notice] 72136#66060: create thread 59212
+2025/08/19 10:30:35 [notice] 48096#32360: start worker process 56188
+2025/08/19 10:30:35 [notice] 56188#72648: nginx/1.22.1
+2025/08/19 10:30:35 [notice] 56188#72648: create thread 68620
+2025/08/19 10:30:35 [notice] 56188#72648: create thread 27380
+2025/08/19 10:30:35 [notice] 56188#72648: create thread 43336
+2025/08/19 10:31:00 [error] 69736#71532: *4 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:31:00 [error] 69736#71532: *6 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:31:11 [error] 69736#71532: *6 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/user/login HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:31:14 [error] 69736#71532: *6 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/user/login HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:31:33 [error] 69736#71532: *6 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:31:33 [error] 69736#71532: *4 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:34:57 [error] 69736#71532: *13 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:34:57 [error] 69736#71532: *14 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:59:11 [error] 69736#71532: *18 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 10:59:11 [error] 69736#71532: *17 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:09:33 [error] 69736#71532: *21 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:09:33 [error] 69736#71532: *22 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:09:38 [error] 69736#71532: *22 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:09:38 [error] 69736#71532: *21 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:11:11 [error] 69736#71532: *27 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:11:11 [error] 69736#71532: *28 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:11:13 [error] 69736#71532: *28 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/user/login HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:20:35 [error] 69736#71532: *32 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/login/channels HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/login/channels", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:20:35 [error] 69736#71532: *33 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/system/config HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/system/config", host: "127.0.0.1", referrer: "http://127.0.0.1/login"
+2025/08/19 11:37:29 [error] 69736#71532: *90 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/tenant/list HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/tenant/list", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:29 [error] 69736#71532: *84 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/kb/list?page=1&page_size=30&keywords= HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/kb/list?page=1&page_size=30&keywords=", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:29 [error] 69736#71532: *86 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:29 [error] 69736#71532: *87 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/tenant_info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/tenant_info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:51 [error] 69736#71532: *87 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/kb/list?page=1&page_size=30&keywords= HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/kb/list?page=1&page_size=30&keywords=", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:51 [error] 69736#71532: *86 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:51 [error] 69736#71532: *90 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/tenant_info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/tenant_info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:55 [error] 69736#71532: *96 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/kb/list?page=1&page_size=30&keywords= HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/kb/list?page=1&page_size=30&keywords=", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:55 [error] 69736#71532: *86 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/tenant_info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/tenant_info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:37:55 [error] 69736#71532: *95 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:00 [error] 69736#71532: *95 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/kb/list?page=1&page_size=30&keywords= HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/kb/list?page=1&page_size=30&keywords=", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:00 [error] 69736#71532: *96 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/tenant_info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/tenant_info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:00 [error] 69736#71532: *86 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:03 [error] 69736#71532: *96 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:03 [error] 69736#71532: *86 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "POST /v1/kb/list?page=1&page_size=30&keywords= HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/kb/list?page=1&page_size=30&keywords=", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"
+2025/08/19 11:38:03 [error] 69736#71532: *95 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: _, request: "GET /v1/user/tenant_info HTTP/1.1", upstream: "http://127.0.0.1:9380/v1/user/tenant_info", host: "127.0.0.1", referrer: "http://127.0.0.1/knowledge"

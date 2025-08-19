@@ -526,7 +526,7 @@ class OCR:
             try:
                 model_dir = os.path.join(
                         get_project_base_directory(),
-                        "rag/res/deepdoc")
+                        r"rag\res\deepdoc")
                 
                 # Append muti-gpus task to the list
                 if PARALLEL_DEVICES is not None and PARALLEL_DEVICES > 0:

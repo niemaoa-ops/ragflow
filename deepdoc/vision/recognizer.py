@@ -44,7 +44,7 @@ class Recognizer:
         if not model_dir:
             model_dir = os.path.join(
                         get_project_base_directory(),
-                        "rag/res/deepdoc")
+                        r"rag\res\deepdoc")
         self.ort_sess, self.run_options = load_model(model_dir, task_name)
         self.input_names = [node.name for node in self.ort_sess.get_inputs()]
         self.output_names = [node.name for node in self.ort_sess.get_outputs()]
