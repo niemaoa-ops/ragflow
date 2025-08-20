@@ -63,7 +63,7 @@ Output:
  "entities_from_query": ["TC4钛合金", "机电系统部件", "制造材料"]
 }}
 #############################
-Example 3:
+示例 3:
 
 Query: "激光焊接工艺在液压管路连接中的优势是什么？"
 Answer type pool: 
@@ -81,7 +81,7 @@ Output:
   "entities_from_query": ["激光焊接工艺", "液压管路连接", "连接优势"]
 }}
 #############################
-Example 4:
+示例 4:
 
 Query: "中航机电系统有限公司负责研制哪些民机机电系统？"
 Answer type pool: 
