@@ -6,142 +6,97 @@ Reference:
 """
 PROMPTS = {}
 
-PROMPTS["minirag_query2kwd"] = """---Role---
+#系统中就使用了这个提示词
+PROMPTS["minirag_query2kwd"] = """--- 角色 ---
+你是一个乐于助人的助手，负责识别用户查询中的答案类型关键词和低层级关键词。
 
-You are a helpful assistant tasked with identifying both answer-type and low-level keywords in the user's query.
+--- 目标 ---
+给定查询内容，列出答案类型关键词和低层级关键词。
+答案类型关键词聚焦于特定查询的答案类型，而低层级关键词则聚焦于具体实体、细节或具体术语。
+答案类型关键词必须从答案类型池（Answer type pool）中选择。
+该池以字典形式呈现，其中键代表你应选择的类型，值代表示例样本。
 
----Goal---
-
-Given the query, list both answer-type and low-level keywords.
-answer_type_keywords focus on the type of the answer to the certain query, while low-level keywords focus on specific entities, details, or concrete terms.
-The answer_type_keywords must be selected from Answer type pool. 
-This pool is in the form of a dictionary, where the key represents the Type you should choose from and the value represents the example samples.
-
----Instructions---
-
-- Output the keywords in JSON format.
-- The JSON should have three keys:
-  - "answer_type_keywords" for the types of the answer. In this list, the types with the highest likelihood should be placed at the forefront. No more than 3.
-  - "entities_from_query" for specific entities or details. It must be extracted from the query.
+--- 说明 ---
+- 以 JSON 格式输出关键词。
+- JSON 应包含两个键：
+  - "answer_type_keywords"：用于存放答案类型。在此列表中，可能性最高的类型应放在最前面。数量不超过 3 个。
+  - "entities_from_query"：用于存放特定实体或细节。必须从查询中提取。
 ######################
--Examples-
+- 示例 -
 ######################
-Example 1:
+示例 1：
 
-Query: "How does international trade influence global economic stability?"
-Answer type pool: {{
- 'PERSONAL LIFE': ['FAMILY TIME', 'HOME MAINTENANCE'],
- 'STRATEGY': ['MARKETING PLAN', 'BUSINESS EXPANSION'],
- 'SERVICE FACILITATION': ['ONLINE SUPPORT', 'CUSTOMER SERVICE TRAINING'],
- 'PERSON': ['JANE DOE', 'JOHN SMITH'],
- 'FOOD': ['PASTA', 'SUSHI'],
- 'EMOTION': ['HAPPINESS', 'ANGER'],
- 'PERSONAL EXPERIENCE': ['TRAVEL ABROAD', 'STUDYING ABROAD'],
- 'INTERACTION': ['TEAM MEETING', 'NETWORKING EVENT'],
- 'BEVERAGE': ['COFFEE', 'TEA'],
- 'PLAN': ['ANNUAL BUDGET', 'PROJECT TIMELINE'],
- 'GEO': ['NEW YORK CITY', 'SOUTH AFRICA'],
- 'GEAR': ['CAMPING TENT', 'CYCLING HELMET'],
- 'EMOJI': ['🎉', '🚀'],
- 'BEHAVIOR': ['POSITIVE FEEDBACK', 'NEGATIVE CRITICISM'],
- 'TONE': ['FORMAL', 'INFORMAL'],
- 'LOCATION': ['DOWNTOWN', 'SUBURBS']
+Query: "全电环控系统如何提高军机的燃油效率？"
+Answer type pool: 
+{{
+ "系统原理": ["工作机制", "能量转换流程"],
+ "技术参数": ["功率消耗", "效率指标"],
+ "部件组成": ["压缩机", "换热器"],
+ "材料特性": ["钛合金强度", "复合材料耐温性"],
+ "工艺方法": ["焊接工艺", "精密加工技术"],
+ "机构职责": ["研制单位", "检测机构"],
+ "应用场景": ["军机环境", "民机配置"]
 }}
 ################
 Output:
 {{
-  "answer_type_keywords": ["STRATEGY","PERSONAL LIFE"],
-  "entities_from_query": ["Trade agreements", "Tariffs", "Currency exchange", "Imports", "Exports"]
+  "answer_type_keywords": ["系统原理", "技术参数"],
+  "entities_from_query": ["全电环控系统", "军机", "燃油效率", "能量转换"]
 }}
 #############################
-Example 2:
+示例 2：
 
-Query: "When was SpaceX's first rocket launch?"
-Answer type pool: {{
- 'DATE AND TIME': ['2023-10-10 10:00', 'THIS AFTERNOON'],
- 'ORGANIZATION': ['GLOBAL INITIATIVES CORPORATION', 'LOCAL COMMUNITY CENTER'],
- 'PERSONAL LIFE': ['DAILY EXERCISE ROUTINE', 'FAMILY VACATION PLANNING'],
- 'STRATEGY': ['NEW PRODUCT LAUNCH', 'YEAR-END SALES BOOST'],
- 'SERVICE FACILITATION': ['REMOTE IT SUPPORT', 'ON-SITE TRAINING SESSIONS'],
- 'PERSON': ['ALEXANDER HAMILTON', 'MARIA CURIE'],
- 'FOOD': ['GRILLED SALMON', 'VEGETARIAN BURRITO'],
- 'EMOTION': ['EXCITEMENT', 'DISAPPOINTMENT'],
- 'PERSONAL EXPERIENCE': ['BIRTHDAY CELEBRATION', 'FIRST MARATHON'],
- 'INTERACTION': ['OFFICE WATER COOLER CHAT', 'ONLINE FORUM DEBATE'],
- 'BEVERAGE': ['ICED COFFEE', 'GREEN SMOOTHIE'],
- 'PLAN': ['WEEKLY MEETING SCHEDULE', 'MONTHLY BUDGET OVERVIEW'],
- 'GEO': ['MOUNT EVEREST BASE CAMP', 'THE GREAT BARRIER REEF'],
- 'GEAR': ['PROFESSIONAL CAMERA EQUIPMENT', 'OUTDOOR HIKING GEAR'],
- 'EMOJI': ['📅', '⏰'],
- 'BEHAVIOR': ['PUNCTUALITY', 'HONESTY'],
- 'TONE': ['CONFIDENTIAL', 'SATIRICAL'],
- 'LOCATION': ['CENTRAL PARK', 'DOWNTOWN LIBRARY']
+Query: "TC4钛合金用于哪些机电系统部件的制造？"
+Answer type pool: 
+{{
+ "部件名称": ["活塞杆", "导管", "壳体"],
+ "系统类型": ["液压系统", "环控系统", "电源系统"],
+ "材料特性": ["强度指标", "耐腐蚀性"],
+ "工艺要求": ["锻造参数", "焊接标准"],
+ "应用机型": ["C929", "翼龙 - 10", "运 - 20"],
+ "供应机构": ["宝钛集团", "中航材料院"]
 }}
-
 ################
 Output:
 {{
-  "answer_type_keywords": ["DATE AND TIME", "ORGANIZATION", "PLAN"],
-  "entities_from_query": ["SpaceX", "Rocket launch", "Aerospace", "Power Recovery"]
-
+ "answer_type_keywords": ["部件名称", "系统类型"],
+ "entities_from_query": ["TC4钛合金", "机电系统部件", "制造材料"]
 }}
 #############################
 Example 3:
 
-Query: "What is the role of education in reducing poverty?"
-Answer type pool: {{
- 'PERSONAL LIFE': ['MANAGING WORK-LIFE BALANCE', 'HOME IMPROVEMENT PROJECTS'],
- 'STRATEGY': ['MARKETING STRATEGIES FOR Q4', 'EXPANDING INTO NEW MARKETS'],
- 'SERVICE FACILITATION': ['CUSTOMER SATISFACTION SURVEYS', 'STAFF RETENTION PROGRAMS'],
- 'PERSON': ['ALBERT EINSTEIN', 'MARIA CALLAS'],
- 'FOOD': ['PAN-FRIED STEAK', 'POACHED EGGS'],
- 'EMOTION': ['OVERWHELM', 'CONTENTMENT'],
- 'PERSONAL EXPERIENCE': ['LIVING ABROAD', 'STARTING A NEW JOB'],
- 'INTERACTION': ['SOCIAL MEDIA ENGAGEMENT', 'PUBLIC SPEAKING'],
- 'BEVERAGE': ['CAPPUCCINO', 'MATCHA LATTE'],
- 'PLAN': ['ANNUAL FITNESS GOALS', 'QUARTERLY BUSINESS REVIEW'],
- 'GEO': ['THE AMAZON RAINFOREST', 'THE GRAND CANYON'],
- 'GEAR': ['SURFING ESSENTIALS', 'CYCLING ACCESSORIES'],
- 'EMOJI': ['💻', '📱'],
- 'BEHAVIOR': ['TEAMWORK', 'LEADERSHIP'],
- 'TONE': ['FORMAL MEETING', 'CASUAL CONVERSATION'],
- 'LOCATION': ['URBAN CITY CENTER', 'RURAL COUNTRYSIDE']
+Query: "激光焊接工艺在液压管路连接中的优势是什么？"
+Answer type pool: 
+{{
+ "工艺特性": ["连接强度", "密封性指标"],
+ "性能提升": ["减重效果", "寿命延长"],
+ "应用场景": ["高压环境", "低温工况"],
+ "对比参数": ["与法兰连接的差异", "与螺纹连接的区别"],
+ "实施机构": ["中航工业制造所", "西航发动机公司"]
 }}
-
 ################
 Output:
 {{
-  "answer_type_keywords": ["STRATEGY", "PERSON"],
-  "entities_from_query": ["School access", "Literacy rates", "Job training", "Income inequality"]
+  "answer_type_keywords": ["工艺特性", "性能提升"],
+  "entities_from_query": ["激光焊接工艺", "液压管路连接", "连接优势"]
 }}
 #############################
 Example 4:
 
-Query: "Where is the capital of the United States?"
-Answer type pool: {{
- 'ORGANIZATION': ['GREENPEACE', 'RED CROSS'],
- 'PERSONAL LIFE': ['DAILY WORKOUT', 'HOME COOKING'],
- 'STRATEGY': ['FINANCIAL INVESTMENT', 'BUSINESS EXPANSION'],
- 'SERVICE FACILITATION': ['ONLINE SUPPORT', 'CUSTOMER SERVICE TRAINING'],
- 'PERSON': ['ALBERTA SMITH', 'BENJAMIN JONES'],
- 'FOOD': ['PASTA CARBONARA', 'SUSHI PLATTER'],
- 'EMOTION': ['HAPPINESS', 'SADNESS'],
- 'PERSONAL EXPERIENCE': ['TRAVEL ADVENTURE', 'BOOK CLUB'],
- 'INTERACTION': ['TEAM BUILDING', 'NETWORKING MEETUP'],
- 'BEVERAGE': ['LATTE', 'GREEN TEA'],
- 'PLAN': ['WEIGHT LOSS', 'CAREER DEVELOPMENT'],
- 'GEO': ['PARIS', 'NEW YORK'],
- 'GEAR': ['CAMERA', 'HEADPHONES'],
- 'EMOJI': ['🏢', '🌍'],
- 'BEHAVIOR': ['POSITIVE THINKING', 'STRESS MANAGEMENT'],
- 'TONE': ['FRIENDLY', 'PROFESSIONAL'],
- 'LOCATION': ['DOWNTOWN', 'SUBURBS']
+Query: "中航机电系统有限公司负责研制哪些民机机电系统？"
+Answer type pool: 
+{{
+ "系统名称": ["全电环控系统", "电源系统", "液压助力系统"],
+ "机型适配": ["C929", "ARJ21", "C919"],
+ "研制阶段": ["设计阶段", "测试阶段", "量产阶段"],
+ "技术指标": ["可靠性参数", "国产化率"],
+ "合作机构": ["中国商飞", "华为技术有限公司"]
 }}
 ################
 Output:
 {{
-  "answer_type_keywords": ["LOCATION"],
-  "entities_from_query": ["capital of the United States", "Washington", "New York"]
+  "answer_type_keywords": ["系统名称", "机型适配"],
+  "entities_from_query": ["中航机电系统有限公司", "民机机电系统", "研制任务"]
 }}
 #############################
 

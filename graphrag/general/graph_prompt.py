@@ -37,7 +37,7 @@ Text：
 中航工业集团研发的运-20大型运输机配备了先进的液压系统，该系统由西安航空制动科技有限公司提供的液压泵和管路组件组成。王工程师负责该液压系统的集成测试工作，他表示该系统的可靠性达到了国际先进水平。
 
 ################
-输出：
+Output：
 ("entity"{tuple_delimiter}"运-20"{tuple_delimiter}"机型"{tuple_delimiter}"中航工业集团研发的大型运输机"){record_delimiter}
 ("entity"{tuple_delimiter}"液压系统"{tuple_delimiter}"系统"{tuple_delimiter}"运-20配备的先进系统，可靠性达到国际先进水平"){record_delimiter}
 ("entity"{tuple_delimiter}"液压泵"{tuple_delimiter}"部件"{tuple_delimiter}"西安航空制动科技有限公司提供的液压系统组件"){record_delimiter}
@@ -59,7 +59,7 @@ Text：
 C919大型客机的航电系统项目采用了DO-178B软件标准，该标准由美国航空无线电技术委员会制定。中国商飞联合华为公司共同开发了符合该标准的航电核心处理技术，这项技术的应用使C919的航电系统性能达到世界领先水平。
 
 ################
-输出：
+Output：
 ("entity"{tuple_delimiter}"C919"{tuple_delimiter}"机型"{tuple_delimiter}"采用先进航电系统的大型客机"){record_delimiter}
 ("entity"{tuple_delimiter}"航电系统项目"{tuple_delimiter}"项目"{tuple_delimiter}"C919的航电子系统研发项目"){record_delimiter}
 ("entity"{tuple_delimiter}"DO-178B"{tuple_delimiter}"标准"{tuple_delimiter}"航电系统软件标准，由美国航空无线电技术委员会制定"){record_delimiter}
@@ -81,7 +81,7 @@ Text：
 某型直升机的燃油泵在高温环境下出现密封不良问题，导致燃油泄漏。611所的张教授团队研发了新型氟橡胶密封技术，该技术应用于燃油泵后，成功解决了密封不良问题，使燃油泵在高温环境下的可靠性提升了40%。
 
 ################
-输出：
+Output：
 ("entity"{tuple_delimiter}"燃油泵"{tuple_delimiter}"部件"{tuple_delimiter}"某型直升机的部件，在高温环境下存在密封问题"){record_delimiter}
 ("entity"{tuple_delimiter}"密封不良问题"{tuple_delimiter}"问题"{tuple_delimiter}"燃油泵在高温环境下出现的问题，导致燃油泄漏"){record_delimiter}
 ("entity"{tuple_delimiter}"燃油泄漏"{tuple_delimiter}"问题"{tuple_delimiter}"由密封不良问题导致的结果"){record_delimiter}
@@ -102,17 +102,16 @@ Text: {input_text}
 ######################
 Output:"""
 
-CONTINUE_PROMPT = "MANY entities were missed in the last extraction.  Add them below using the same format:\n"
-LOOP_PROMPT = "It appears some entities may have still been missed. Answer Y if there are still entities that need to be added, or N if there are none. Please answer with a single letter Y or N.\n"
+CONTINUE_PROMPT = "上次抽取遗漏了许多实体。请使用相同格式在下方补充这些实体：\n"
+LOOP_PROMPT = "看起来可能仍有一些实体被遗漏。如果仍有需要补充的实体，请回答 Y；如果没有，请回答 N。请仅用一个字母 Y 或 N 回答。\n"
 
 SUMMARIZE_DESCRIPTIONS_PROMPT = """
-You are a helpful assistant responsible for generating a comprehensive summary of the data provided below.
-Given one or two entities, and a list of descriptions, all related to the same entity or group of entities.
-Please concatenate all of these into a single, comprehensive description. Make sure to include information collected from all the descriptions.
-If the provided descriptions are contradictory, please resolve the contradictions and provide a single, coherent summary.
-Make sure it is written in third person, and include the entity names so we the have full context.
-Use {language} as output language.
-
+你是一个乐于助人的助手，负责对下方提供的数据生成一份全面的总结。
+给定一个或两个实体，以及一系列描述，所有这些都与同一个实体或一组实体相关。
+请将所有这些内容合并成一个全面的描述。确保包含从所有描述中收集的信息。
+如果提供的描述存在矛盾，请解决这些矛盾，并提供一个连贯的总结。
+确保使用第三人称撰写，并包含实体名称，以便我们了解完整的背景。
+使用 中文 作为输出语言。
 #######
 -Data-
 Entities: {entity_name}

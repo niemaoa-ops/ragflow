@@ -15,58 +15,56 @@
 #
 
 ENTITY_RESOLUTION_PROMPT = """
--Goal-
-Please answer the following Question as required
+- 目标 -
+请按照要求回答以下问题
 
--Steps-
-1. Identify each line of questioning as required
-
-2. Return output in English as a single list of each line answer in steps 1. Use **{record_delimiter}** as the list delimiter.
-
+- 步骤 -
+1、按照要求识别每一条问题
+2、以中文返回步骤 1 中每个问题的答案，形成一个列表。使用 **{record_delimiter}** 作为列表分隔符。
 ######################
--Examples-
+- 示例 -
 ######################
-Example 1:
+示例 1：
 
-Question:
-When determining whether two Products are the same, you should only focus on critical properties and overlook noisy factors. 
+Question：
+判断两个机电系统部件是否为同一实体时，应仅关注其核心功能和技术参数，忽略名称表述的细微差异。
 
-Demonstration 1: name of Product A is : "computer", name of Product B is :"phone"  No, Product A and Product B are different products.
-Question 1: name of Product A is : "television", name of Product B is :"TV"  
-Question 2: name of Product A is : "cup", name of Product B is :"mug"  
-Question 3: name of Product A is : "soccer", name of Product B is :"football"  
-Question 4: name of Product A is : "pen", name of Product B is  :"eraser"  
+示范 1：部件 A 名称：“高压液压泵”，部件 B 名称：“高压油压泵” ，是，部件 A 和部件 B 为同一实体。
+问题 1：部件 A 名称：“某型环控系统”，部件 B 名称：“环境控制系统”
+问题 2：部件 A 名称：“航电核心处理单元”，部件 B 名称：“飞控计算机”
+问题 3：部件 A 名称：“钛合金液压管路”，部件 B 名称：“TC4 钛合金液压导管”
+问题 4：部件 A 名称：“电动作动器”，部件 B 名称：“液压作动器” 
 
-Use domain knowledge of Products to help understand the text and answer the above 4 questions in the format: For Question i, Yes, Product A and Product B are the same product. or  No, Product A and Product B are different products. For Question i+1, (repeat the above procedures)
+利用机电系统部件的领域知识理解文本，并按以下格式回答上述 4 个问题：对于问题 i，是，部件 A 和部件 B 为同一实体。或 否，部件 A 和部件 B 为不同实体。对于问题 i+1，（重复上述格式）
 ################
 Output:
-(For question {entity_index_delimiter}1{entity_index_delimiter}, {resolution_result_delimiter}no{resolution_result_delimiter}, Product A and Product B are different products.){record_delimiter}
-(For question {entity_index_delimiter}2{entity_index_delimiter}, {resolution_result_delimiter}no{resolution_result_delimiter}, Product A and Product B are different products.){record_delimiter}
-(For question {entity_index_delimiter}3{entity_index_delimiter}, {resolution_result_delimiter}yes{resolution_result_delimiter}, Product A and Product B are the same product.){record_delimiter}
-(For question {entity_index_delimiter}4{entity_index_delimiter}, {resolution_result_delimiter}no{resolution_result_delimiter}, Product A and Product B are different products.){record_delimiter}
+(For question {entity_index_delimiter} 1 {entity_index_delimiter}, {resolution_result_delimiter} 是 {resolution_result_delimiter}, 部件 A 和部件 B 为同一实体。){record_delimiter}
+(For question {entity_index_delimiter} 2 {entity_index_delimiter}, {resolution_result_delimiter} 否 {resolution_result_delimiter}, 部件 A 和部件 B 为不同实体。){record_delimiter}
+(For question {entity_index_delimiter} 3 {entity_index_delimiter}, {resolution_result_delimiter} 是 {resolution_result_delimiter}, 部件 A 和部件 B 为同一实体。){record_delimiter}
+(For question {entity_index_delimiter} 4 {entity_index_delimiter}, {resolution_result_delimiter} 否 {resolution_result_delimiter}, 部件 A 和部件 B 为不同实体。){record_delimiter}
 #############################
 
-Example 2:
+示例 2：
 
-Question:
-When determining whether two toponym are the same, you should only focus on critical properties and overlook noisy factors. 
+Question：
+判断两个机电系统相关技术是否为同一技术时，应仅关注其核心原理和应用场景，忽略表述方式的差异。
 
-Demonstration 1: name of toponym A is : "nanjing", name of toponym B is :"nanjing city"  No, toponym A and toponym B are same toponym.
-Question 1: name of toponym A is : "Chicago", name of toponym B is :"ChiTown"  
-Question 2: name of toponym A is : "Shanghai", name of toponym B is :"Zhengzhou"  
-Question 3: name of toponym A is : "Beijing", name of toponym B is :"Peking"
-Question 4: name of toponym A is : "Los Angeles", name of toponym B is :"Cleveland" 
+示范：技术 A 名称：“3D 打印成型技术”，技术 B 名称：“增材制造技术” ，是，技术 A 和技术 B 为同一技术。
+问题 1：技术 A 名称：“精密铸造工艺”，技术 B 名称：“失蜡铸造工艺”
+问题 2：技术 A 名称：“分子筛制氧技术”，技术 B 名称：“化学制氧技术”
+问题 3：技术 A 名称：“光纤传感技术”，技术 B 名称：“光纤传感技术”
+问题 4：技术 A 名称：“液压传动技术”，技术 B 名称：“电传操纵技术”
 
-Use domain knowledge of toponym to help understand the text and answer the above 4 questions in the format: For Question i, Yes, toponym A and toponym B are the same toponym. or  No, toponym A and toponym B are different toponym. For Question i+1, (repeat the above procedures)
+利用机电系统技术的领域知识理解文本，并按以下格式回答上述 4 个问题：对于问题 i，是，技术 A 和技术 B 为同一技术。或 否，技术 A 和技术 B 为不同技术。对于问题 i+1，（重复上述格式）
 ################
 Output:
-(For question {entity_index_delimiter}1{entity_index_delimiter}, {resolution_result_delimiter}yes{resolution_result_delimiter}, toponym A and toponym B are same toponym.){record_delimiter}
-(For question {entity_index_delimiter}2{entity_index_delimiter}, {resolution_result_delimiter}no{resolution_result_delimiter}, toponym A and toponym B are different toponym.){record_delimiter}
-(For question {entity_index_delimiter}3{entity_index_delimiter}, {resolution_result_delimiter}yes{resolution_result_delimiter}, toponym A and toponym B are the same toponym.){record_delimiter}
-(For question {entity_index_delimiter}4{entity_index_delimiter}, {resolution_result_delimiter}no{resolution_result_delimiter}, toponym A and toponym B are different toponym.){record_delimiter}
+(For question {entity_index_delimiter} 1 {entity_index_delimiter}, {resolution_result_delimiter} 是 {resolution_result_delimiter}, 技术 A 和技术 B 为同一技术。){record_delimiter}
+(For question {entity_index_delimiter} 2 {entity_index_delimiter}, {resolution_result_delimiter} 否 {resolution_result_delimiter}, 技术 A 和技术 B 为不同技术。){record_delimiter}
+(For question {entity_index_delimiter} 3 {entity_index_delimiter}, {resolution_result_delimiter} 是 {resolution_result_delimiter}, 技术 A 和技术 B 为同一技术。){record_delimiter}
+(For question {entity_index_delimiter} 4 {entity_index_delimiter}, {resolution_result_delimiter} 否 {resolution_result_delimiter}, 技术 A 和技术 B 为不同技术。){record_delimiter}
 #############################
 
--Real Data-
+-真实数据-
 ######################
 Question:{input_text}
 ######################
