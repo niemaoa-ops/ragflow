@@ -44,3 +44,4 @@ nltk_data/
 .lh/
 .venv
 docker/data
+/docker/nginx-1.22.1/logs/
