@@ -181,18 +181,15 @@ Overall, while Musk enjoys Dogecoin and often promotes it, he also warns against
 
 
 def keyword_extraction(chat_mdl, content, topn=3):
-    prompt = f"""
-Role: You're a text analyzer.
-Task: extract the most important keywords/phrases of a given piece of text content.
-Requirements:
-  - Summarize the text content, and give top {topn} important keywords/phrases.
-  - The keywords MUST be in language of the given piece of text content.
-  - The keywords are delimited by ENGLISH COMMA.
-  - Keywords ONLY in output.
-
-### Text Content
-{content}
-
+    prompt=f"""
+角色：你是一名文本分析师。
+任务：从给定的文本内容中提取最重要的关键词/短语。
+要求：
+  - 列出最重要的{topn}个关键词/短语。
+  - 关键词必须使用给定文本内容的语言。
+  - 关键词以英文逗号分隔。
+  - 输出中仅包含关键词。
+文本内容：{content}
 """
     msg = [{"role": "system", "content": prompt}, {"role": "user", "content": "Output: "}]
     _, msg = message_fit_in(msg, chat_mdl.max_length)
