@@ -15,6 +15,11 @@ import networkx as nx
 from rag.utils import num_tokens_from_string
 import trio
 
+DEFAULT_ENTITY_DESCRIPTION_INSTRUCTION = "Comprehensive description of the entity's attributes and activities"
+DEFAULT_RELATIONSHIP_DESCRIPTION_INSTRUCTION = (
+    "Explanation as to why you think the source entity and the target entity are related to each other"
+)
+
 
 @dataclass
 class GraphExtractionResult:
@@ -35,6 +40,8 @@ class GraphExtractor(Extractor):
         entity_types: list[str] | None = None,
         example_number: int = 2,
         max_gleanings: int | None = None,
+        entity_description_instruction: str | None = None,
+        relationship_description_instruction: str | None = None,
     ):
         super().__init__(llm_invoker, language, entity_types)
         """Init method definition."""
@@ -66,6 +73,13 @@ class GraphExtractor(Extractor):
             entity_types=",".join(self._entity_types),
             examples=examples,
             language=self._language,
+            entity_description_instruction=(
+                entity_description_instruction or DEFAULT_ENTITY_DESCRIPTION_INSTRUCTION
+            ),
+            relationship_description_instruction=(
+                relationship_description_instruction
+                or DEFAULT_RELATIONSHIP_DESCRIPTION_INSTRUCTION
+            ),
         )
 
         self._continue_prompt = PROMPTS["entiti_continue_extraction"]

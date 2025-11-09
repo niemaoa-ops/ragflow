@@ -21,6 +21,7 @@ from api.db import StatusEnum, TenantPermission
 from api.db.db_models import DB, Document, Knowledgebase, Tenant, User, UserTenant
 from api.db.services.common_service import CommonService
 from api.utils import current_timestamp, datetime_format
+from api.utils.api_utils import ensure_graphrag_config
 
 
 class KnowledgebaseService(CommonService):
@@ -238,6 +239,7 @@ class KnowledgebaseService(CommonService):
         if not kbs:
             return
         d = kbs[0].to_dict()
+        d["parser_config"] = ensure_graphrag_config(d.get("parser_config"), ensure_block=True)
         return d
 
     @classmethod
@@ -267,7 +269,7 @@ class KnowledgebaseService(CommonService):
                     old[k] = v
 
         dfs_update(m.parser_config, config)
-        cls.update_by_id(id, {"parser_config": m.parser_config})
+        cls.update_by_id(id, {"parser_config": ensure_graphrag_config(m.parser_config)})
 
     @classmethod
     @DB.connection_context()
