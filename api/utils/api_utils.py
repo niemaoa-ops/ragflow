@@ -45,6 +45,20 @@ from api.constants import REQUEST_MAX_WAIT_SEC, REQUEST_WAIT_SEC
 from api.db.db_models import APIToken
 from api.db.services.llm_service import LLMService, TenantLLMService
 from api.utils import CustomJSONEncoder, get_uuid, json_dumps
+from api.utils.validation_utils import (
+    DEFAULT_ENTITY_DESCRIPTION_PROMPT,
+    DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT,
+)
+
+DEFAULT_GRAPHRAG_CONFIG = {
+    "use_graphrag": False,
+    "entity_types": ["organization", "person", "geo", "event", "category"],
+    "method": "light",
+    "community": False,
+    "resolution": False,
+    "entity_description_prompt": DEFAULT_ENTITY_DESCRIPTION_PROMPT,
+    "relationship_description_prompt": DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT,
+}
 
 requests.models.complexjson.dumps = functools.partial(json.dumps, cls=CustomJSONEncoder)
 
@@ -344,11 +358,17 @@ def generate_confirmation_token(tenant_id):
 
 def get_parser_config(chunk_method, parser_config):
     if parser_config:
-        return parser_config
+        return ensure_graphrag_config(parser_config)
     if not chunk_method:
         chunk_method = "naive"
     key_mapping = {
-        "naive": {"chunk_token_num": 128, "delimiter": r"\n", "html4excel": False, "layout_recognize": "DeepDOC", "raptor": {"use_raptor": False}},
+        "naive": {
+            "chunk_token_num": 128,
+            "delimiter": r"\n",
+            "html4excel": False,
+            "layout_recognize": "DeepDOC",
+            "raptor": {"use_raptor": False},
+        },
         "qa": {"raptor": {"use_raptor": False}},
         "tag": None,
         "resume": None,
@@ -359,12 +379,21 @@ def get_parser_config(chunk_method, parser_config):
         "laws": {"raptor": {"use_raptor": False}},
         "presentation": {"raptor": {"use_raptor": False}},
         "one": None,
-        "knowledge_graph": {"chunk_token_num": 8192, "delimiter": r"\n", "entity_types": ["organization", "person", "location", "event", "time"]},
+        "knowledge_graph": {
+            "chunk_token_num": 8192,
+            "delimiter": r"\n",
+            "graphrag": {
+                **DEFAULT_GRAPHRAG_CONFIG,
+                "use_graphrag": True,
+            },
+        },
         "email": None,
         "picture": None,
     }
     parser_config = key_mapping[chunk_method]
-    return parser_config
+    if parser_config is None:
+        return None
+    return ensure_graphrag_config(parser_config)
 
 
 def get_data_openai(
@@ -522,6 +551,47 @@ def deep_merge(default: dict, custom: dict) -> dict:
                 base_dict[key] = val
 
     return merged
+
+
+def ensure_graphrag_config(parser_config: dict | None, *, ensure_block: bool = False) -> dict:
+    """Ensure GraphRAG configuration fields exist with sensible defaults.
+
+    Args:
+        parser_config: Existing parser configuration dictionary.
+        ensure_block: When True, force creation of the ``graphrag`` block even if it
+            doesn't already exist in ``parser_config``.
+
+    Returns:
+        dict: Normalized parser configuration with GraphRAG defaults populated when
+        applicable.
+    """
+
+    config = deepcopy(parser_config) if parser_config else {}
+
+    graphrag = config.get("graphrag")
+    if not isinstance(graphrag, dict):
+        if not ensure_block and graphrag is None:
+            return config
+        graphrag = {}
+        config["graphrag"] = graphrag
+
+    for key, value in DEFAULT_GRAPHRAG_CONFIG.items():
+        if key not in graphrag:
+            graphrag[key] = deepcopy(value) if isinstance(value, (dict, list)) else value
+
+    if not isinstance(graphrag.get("entity_description_prompt"), str) or not graphrag[
+        "entity_description_prompt"
+    ].strip():
+        graphrag["entity_description_prompt"] = DEFAULT_ENTITY_DESCRIPTION_PROMPT
+
+    if not isinstance(graphrag.get("relationship_description_prompt"), str) or not graphrag[
+        "relationship_description_prompt"
+    ].strip():
+        graphrag["relationship_description_prompt"] = (
+            DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT
+        )
+
+    return config
 
 
 def remap_dictionary_keys(source_data: dict, key_aliases: dict = None) -> dict:
