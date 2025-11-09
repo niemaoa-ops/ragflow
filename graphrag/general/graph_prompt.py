@@ -12,7 +12,7 @@ GRAPH_EXTRACTION_PROMPT = """
 - 步骤 -
 1、识别所有实体。对于每个识别出的实体，提取以下信息：
 entity_name: 实体名称，首字母大写，使用 "文本" 中的语言
-entity_type: 以下类型之一：[{entity_types}]
+entity_type: 以下类型之一：[{entity_types}]{entity_type_descriptions}
 entity_description: 实体的属性信息，直接从 "文本" 中提取的实体属性和活动的综合描述，使用 "文本" 中的语言
 每个实体格式：("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
 
@@ -20,7 +20,7 @@ entity_description: 实体的属性信息，直接从 "文本" 中提取的实�
 对于每对相关实体，提取以下信息：
 source_entity: 源实体名称，如步骤 1 中所识别
 target_entity: 目标实体名称，如步骤 1 中所识别
-relationship_description: 解释为什么认为源实体和目标实体相互关联，使用 "文本" 中的语言
+relationship_description: 解释为什么认为源实体和目标实体相互关联，使用 "文本" 中的语言{relation_type_descriptions}
 relationship_strength: 表示源实体和目标实体之间关系强度的数字评分
 每个关系格式：("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
 
