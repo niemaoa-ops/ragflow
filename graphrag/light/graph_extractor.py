@@ -38,6 +38,8 @@ class GraphExtractor(Extractor):
         llm_invoker: CompletionLLM,
         language: str | None = "English",
         entity_types: list[str] | None = None,
+        entity_descriptions: dict[str, str] | None = None,
+        relation_descriptions: list[str] | None = None,
         example_number: int = 2,
         max_gleanings: int | None = None,
         entity_description_instruction: str | None = None,
@@ -55,12 +57,32 @@ class GraphExtractor(Extractor):
                 PROMPTS["entity_extraction_examples"][: int(self._example_number)]
             )
 
+        # Build entity type descriptions text
+        entity_type_descriptions_text = ""
+        if entity_descriptions:
+            desc_lines = []
+            for entity_type, desc in entity_descriptions.items():
+                desc_lines.append(f"  - {entity_type}: {desc}")
+            if desc_lines:
+                entity_type_descriptions_text = "\nEntity Type Descriptions:\n" + "\n".join(desc_lines)
+
+        # Build relation type descriptions text
+        relation_type_descriptions_text = ""
+        if relation_descriptions:
+            desc_lines = []
+            for i, desc in enumerate(relation_descriptions, 1):
+                desc_lines.append(f"  {i}. {desc}")
+            if desc_lines:
+                relation_type_descriptions_text = "\nRelationship Type Descriptions:\n" + "\n".join(desc_lines)
+
         example_context_base = dict(
             tuple_delimiter=PROMPTS["DEFAULT_TUPLE_DELIMITER"],
             record_delimiter=PROMPTS["DEFAULT_RECORD_DELIMITER"],
             completion_delimiter=PROMPTS["DEFAULT_COMPLETION_DELIMITER"],
             entity_types=",".join(self._entity_types),
             language=self._language,
+            entity_type_descriptions=entity_type_descriptions_text,
+            relation_type_descriptions=relation_type_descriptions_text,
         )
         # add example's format
         examples = examples.format(**example_context_base)
@@ -73,13 +95,8 @@ class GraphExtractor(Extractor):
             entity_types=",".join(self._entity_types),
             examples=examples,
             language=self._language,
-            entity_description_instruction=(
-                entity_description_instruction or DEFAULT_ENTITY_DESCRIPTION_INSTRUCTION
-            ),
-            relationship_description_instruction=(
-                relationship_description_instruction
-                or DEFAULT_RELATIONSHIP_DESCRIPTION_INSTRUCTION
-            ),
+            entity_type_descriptions=entity_type_descriptions_text,
+            relation_type_descriptions=relation_type_descriptions_text,
         )
 
         self._continue_prompt = PROMPTS["entiti_continue_extraction"]

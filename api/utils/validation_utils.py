@@ -359,6 +359,8 @@ class RaptorConfig(Base):
 class GraphragConfig(Base):
     use_graphrag: bool = Field(default=False)
     entity_types: list[str] = Field(default_factory=lambda: ["organization", "person", "geo", "event", "category"])
+    entity_descriptions: dict[str, str] | None = Field(default=None, description="Custom descriptions for each entity type")
+    relation_descriptions: list[str] | None = Field(default=None, description="Custom descriptions for relationship types")
     method: GraphragMethodEnum = Field(default=GraphragMethodEnum.light)
     community: bool = Field(default=False)
     resolution: bool = Field(default=False)

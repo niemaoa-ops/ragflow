@@ -55,6 +55,8 @@ class GraphExtractor(Extractor):
         llm_invoker: CompletionLLM,
         language: str | None = "English",
         entity_types: list[str] | None = None,
+        entity_descriptions: dict[str, str] | None = None,
+        relation_descriptions: list[str] | None = None,
         tuple_delimiter_key: str | None = None,
         record_delimiter_key: str | None = None,
         input_text_key: str | None = None,
@@ -95,16 +97,32 @@ class GraphExtractor(Extractor):
         no = encoding.encode("NO")
         self._loop_args = {"logit_bias": {yes[0]: 100, no[0]: 100}, "max_tokens": 1}
 
+        # Build entity type descriptions text
+        entity_type_descriptions_text = ""
+        if entity_descriptions:
+            desc_lines = []
+            for entity_type, desc in entity_descriptions.items():
+                desc_lines.append(f"  - {entity_type}: {desc}")
+            if desc_lines:
+                entity_type_descriptions_text = "\n实体类型说明：\n" + "\n".join(desc_lines)
+
+        # Build relation type descriptions text
+        relation_type_descriptions_text = ""
+        if relation_descriptions:
+            desc_lines = []
+            for i, desc in enumerate(relation_descriptions, 1):
+                desc_lines.append(f"  {i}. {desc}")
+            if desc_lines:
+                relation_type_descriptions_text = "\n关系类型说明：\n" + "\n".join(desc_lines)
+
         # Wire defaults into the prompt variables
         self._prompt_variables = {
             self._tuple_delimiter_key: DEFAULT_TUPLE_DELIMITER,
             self._record_delimiter_key: DEFAULT_RECORD_DELIMITER,
             self._completion_delimiter_key: DEFAULT_COMPLETION_DELIMITER,
-            self._entity_types_key: ",".join(self._entity_types),
-            self._entity_description_key: entity_description_instruction
-            or DEFAULT_ENTITY_DESCRIPTION_INSTRUCTION,
-            self._relationship_description_key: relationship_description_instruction
-            or DEFAULT_RELATIONSHIP_DESCRIPTION_INSTRUCTION,
+            self._entity_types_key: ",".join(entity_types),
+            "entity_type_descriptions": entity_type_descriptions_text,
+            "relation_type_descriptions": relation_type_descriptions_text,
         }
 
     async def _process_single_content(self, chunk_key_dp: tuple[str, str], chunk_seq: int, num_chunks: int, out_results):

@@ -80,7 +80,9 @@ async def run_graphrag(
         doc_id,
         chunks,
         language,
-        entity_types,
+        row["kb_parser_config"]["graphrag"]["entity_types"],
+        row["kb_parser_config"]["graphrag"].get("entity_descriptions"),
+        row["kb_parser_config"]["graphrag"].get("relation_descriptions"),
         chat_model,
         embedding_model,
         callback,
@@ -149,6 +151,8 @@ async def generate_subgraph(
     chunks: list[str],
     language,
     entity_types,
+    entity_descriptions,
+    relation_descriptions,
     llm_bdl,
     embed_bdl,
     callback,
@@ -174,8 +178,8 @@ async def generate_subgraph(
         llm_bdl,
         language=language,
         entity_types=entity_types,
-        entity_description_instruction=entity_description_instruction,
-        relationship_description_instruction=relationship_description_instruction,
+        entity_descriptions=entity_descriptions,
+        relation_descriptions=relation_descriptions,
     )
     ents, rels = await ext(doc_id, chunks, callback)
     subgraph = nx.Graph()
