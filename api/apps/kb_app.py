@@ -77,9 +77,12 @@ def create():
 @validate_request("kb_id", "name", "description", "parser_id")
 @not_allowed_parameters("id", "tenant_id", "created_by", "create_time", "update_time", "create_date", "update_date", "created_by")
 def update():
-    req = request.json
+    req = dict(request.json)
     req["name"] = req["name"].strip()
-    if not KnowledgebaseService.accessible4deletion(req["kb_id"], current_user.id):
+    kb_id = req.pop("kb_id")
+    parser_config_patch = req.pop("parser_config", None)
+
+    if not KnowledgebaseService.accessible4deletion(kb_id, current_user.id):
         return get_json_result(
             data=False,
             message='No authorization.',
@@ -87,12 +90,12 @@ def update():
         )
     try:
         if not KnowledgebaseService.query(
-                created_by=current_user.id, id=req["kb_id"]):
+                created_by=current_user.id, id=kb_id):
             return get_json_result(
                 data=False, message='Only owner of knowledgebase authorized for this operation.',
                 code=settings.RetCode.OPERATING_ERROR)
 
-        e, kb = KnowledgebaseService.get_by_id(req["kb_id"])
+        e, kb = KnowledgebaseService.get_by_id(kb_id)
         if not e:
             return get_data_error_result(
                 message="Can't find this knowledgebase!")
@@ -110,12 +113,14 @@ def update():
             return get_data_error_result(
                 message="Duplicated knowledgebase name.")
 
-        del req["kb_id"]
-        if not KnowledgebaseService.update_by_id(kb.id, req):
+        if parser_config_patch is not None:
+            KnowledgebaseService.update_parser_config(kb.id, parser_config_patch)
+
+        if req and not KnowledgebaseService.update_by_id(kb.id, req):
             return get_data_error_result()
 
-        if kb.pagerank != req.get("pagerank", 0):
-            if req.get("pagerank", 0) > 0:
+        if "pagerank" in req and kb.pagerank != req["pagerank"]:
+            if req["pagerank"] > 0:
                 settings.docStoreConn.update({"kb_id": kb.id}, {PAGERANK_FLD: req["pagerank"]},
                                          search.index_name(kb.tenant_id), kb.id)
             else:
@@ -123,14 +128,12 @@ def update():
                 settings.docStoreConn.update({"exists": PAGERANK_FLD}, {"remove": PAGERANK_FLD},
                                          search.index_name(kb.tenant_id), kb.id)
 
-        e, kb = KnowledgebaseService.get_by_id(kb.id)
-        if not e:
+        kb_detail = KnowledgebaseService.get_detail(kb.id)
+        if not kb_detail:
             return get_data_error_result(
                 message="Database error (Knowledgebase rename)!")
-        kb = kb.to_dict()
-        kb.update(req)
 
-        return get_json_result(data=kb)
+        return get_json_result(data=kb_detail)
     except Exception as e:
         return server_error_response(e)
 

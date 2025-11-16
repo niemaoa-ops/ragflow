@@ -30,6 +30,7 @@ from api.db.services.user_service import TenantService
 from api.utils import get_uuid
 from api.utils.api_utils import (
     deep_merge,
+    ensure_graphrag_config,
     get_error_argument_result,
     get_error_data_result,
     get_error_operating_result,
@@ -128,7 +129,9 @@ def create(tenant_id):
         logging.exception(e)
         return get_error_data_result(message="Database operation failed")
 
-    req["parser_config"] = get_parser_config(req["parser_id"], req["parser_config"])
+    req["parser_config"] = ensure_graphrag_config(
+        get_parser_config(req["parser_id"], req["parser_config"])
+    )
     req["id"] = get_uuid()
     req["tenant_id"] = tenant_id
     req["created_by"] = tenant_id
@@ -164,6 +167,9 @@ def create(tenant_id):
         return get_error_data_result(message="Database operation failed")
 
     response_data = remap_dictionary_keys(k.to_dict())
+    response_data["parser_config"] = ensure_graphrag_config(
+        response_data.get("parser_config"), ensure_block=True
+    )
     return get_result(data=response_data)
 
 
@@ -354,7 +360,9 @@ def update(tenant_id, dataset_id):
         return get_error_data_result(message="Database operation failed")
 
     if req.get("parser_config"):
-        req["parser_config"] = deep_merge(kb.parser_config, req["parser_config"])
+        req["parser_config"] = ensure_graphrag_config(
+            deep_merge(kb.parser_config, req["parser_config"])
+        )
 
     if (chunk_method := req.get("parser_id")) and chunk_method != kb.parser_id:
         if not req.get("parser_config"):
@@ -487,5 +495,9 @@ def list_datasets(tenant_id):
 
     response_data_list = []
     for kb in kbs:
-        response_data_list.append(remap_dictionary_keys(kb))
+        normalized = remap_dictionary_keys(kb)
+        normalized["parser_config"] = ensure_graphrag_config(
+            normalized.get("parser_config"), ensure_block=True
+        )
+        response_data_list.append(normalized)
     return get_result(data=response_data_list)

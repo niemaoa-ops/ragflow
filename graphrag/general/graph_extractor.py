@@ -21,6 +21,8 @@ from rag.utils import num_tokens_from_string
 DEFAULT_TUPLE_DELIMITER = "<|>"
 DEFAULT_RECORD_DELIMITER = "##"
 DEFAULT_COMPLETION_DELIMITER = "<|COMPLETE|>"
+DEFAULT_ENTITY_DESCRIPTION_INSTRUCTION = "实体的属性信息，直接从 \"文本\" 中提取的实体属性和活动的综合描述，使用 \"文本\" 中的语言"
+DEFAULT_RELATIONSHIP_DESCRIPTION_INSTRUCTION = "解释为什么认为源实体和目标实体相互关联，使用 \"文本\" 中的语言"
 
 
 @dataclass
@@ -60,6 +62,8 @@ class GraphExtractor(Extractor):
         input_text_key: str | None = None,
         entity_types_key: str | None = None,
         completion_delimiter_key: str | None = None,
+        entity_description_instruction: str | None = None,
+        relationship_description_instruction: str | None = None,
         join_descriptions=True,
         max_gleanings: int | None = None,
         on_error: ErrorHandlerFn | None = None,
@@ -76,6 +80,8 @@ class GraphExtractor(Extractor):
             completion_delimiter_key or "completion_delimiter"
         )
         self._entity_types_key = entity_types_key or "entity_types"
+        self._entity_description_key = "entity_description_instruction"
+        self._relationship_description_key = "relationship_description_instruction"
         self._extraction_prompt = GRAPH_EXTRACTION_PROMPT
         self._max_gleanings = (
             max_gleanings

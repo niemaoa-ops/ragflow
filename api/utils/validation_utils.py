@@ -332,6 +332,10 @@ class GraphragMethodEnum(StrEnum):
     general = auto()
 
 
+DEFAULT_ENTITY_DESCRIPTION_PROMPT = "请用通俗易懂的语言概括实体的核心含义，突出它在原文中的作用或属性。"
+DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT = "请说明两个实体之间的联系，重点描述它们在原文中如何互相影响或关联。"
+
+
 class Base(BaseModel):
     class Config:
         extra = "forbid"
@@ -360,6 +364,16 @@ class GraphragConfig(Base):
     method: GraphragMethodEnum = Field(default=GraphragMethodEnum.light)
     community: bool = Field(default=False)
     resolution: bool = Field(default=False)
+    entity_description_prompt: str | None = Field(
+        default=DEFAULT_ENTITY_DESCRIPTION_PROMPT,
+        min_length=1,
+        max_length=4096,
+    )
+    relationship_description_prompt: str | None = Field(
+        default=DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT,
+        min_length=1,
+        max_length=4096,
+    )
 
 
 class ParserConfig(Base):

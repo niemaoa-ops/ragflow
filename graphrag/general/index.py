@@ -20,11 +20,15 @@ import trio
 
 from api import settings
 from api.utils import get_uuid
+from api.utils.validation_utils import (
+    DEFAULT_ENTITY_DESCRIPTION_PROMPT,
+    DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT,
+)
 from graphrag.light.graph_extractor import GraphExtractor as LightKGExt
 from graphrag.general.graph_extractor import GraphExtractor as GeneralKGExt
 from graphrag.general.community_reports_extractor import CommunityReportsExtractor
 from graphrag.entity_resolution import EntityResolution
-from graphrag.general.extractor import Extractor
+from graphrag.general.extractor import Extractor, DEFAULT_ENTITY_TYPES
 from graphrag.utils import (
     graph_merge,
     get_graph,
@@ -55,10 +59,22 @@ async def run_graphrag(
     ):
         chunks.append(d["content_with_weight"])
 
+    graphrag_conf = (row.get("kb_parser_config") or {}).get("graphrag") or {}
+    method = graphrag_conf.get("method", "light")
+    entity_types = graphrag_conf.get("entity_types") or DEFAULT_ENTITY_TYPES
+    entity_instruction = (
+        graphrag_conf.get("entity_description_prompt")
+        or DEFAULT_ENTITY_DESCRIPTION_PROMPT
+    )
+    relationship_instruction = (
+        graphrag_conf.get("relationship_description_prompt")
+        or DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT
+    )
+
+    extractor_cls = LightKGExt if method != "general" else GeneralKGExt
+
     subgraph = await generate_subgraph(
-        LightKGExt
-        if row["kb_parser_config"]["graphrag"]["method"] != "general"
-        else GeneralKGExt,
+        extractor_cls,
         tenant_id,
         kb_id,
         doc_id,
@@ -70,6 +86,8 @@ async def run_graphrag(
         chat_model,
         embedding_model,
         callback,
+        entity_description_instruction=entity_instruction,
+        relationship_description_instruction=relationship_instruction,
     )
     if not subgraph:
         return
@@ -138,12 +156,24 @@ async def generate_subgraph(
     llm_bdl,
     embed_bdl,
     callback,
+    *,
+    entity_description_instruction: str | None = None,
+    relationship_description_instruction: str | None = None,
 ):
     contains = await does_graph_contains(tenant_id, kb_id, doc_id)
     if contains:
         callback(msg=f"Graph already contains {doc_id}")
         return None
     start = trio.current_time()
+    entity_types = entity_types or DEFAULT_ENTITY_TYPES
+    entity_description_instruction = (
+        entity_description_instruction or DEFAULT_ENTITY_DESCRIPTION_PROMPT
+    )
+    relationship_description_instruction = (
+        relationship_description_instruction
+        or DEFAULT_RELATIONSHIP_DESCRIPTION_PROMPT
+    )
+
     ext = extractor(
         llm_bdl,
         language=language,
